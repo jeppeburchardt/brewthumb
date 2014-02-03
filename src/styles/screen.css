@@ -1,0 +1,119 @@
+body {
+	margin: 0;
+	padding: 0;
+	font-family: helvetica, arial, sans-serif;
+	font-size: 14px;
+	background-color: #323232;
+	color: #8f908a;
+	text-shadow: 0 -1px black;
+}
+#top {
+	background-color: black;
+	padding: 10px;
+	color: white;
+	text-shadow: none;
+	font-weight: bold;
+}
+#pane {
+	margin: auto;
+	padding: 25px;
+	max-width: 500px;
+}
+nav {
+	display: table;
+	width: 100%;
+	font-size: 12px;
+	text-shadow: none;
+}
+nav a:link {
+	display: table-cell;
+	width: 25%;
+	text-align: center;
+	padding: 5px;
+	border: 1px solid #ffd600;
+	border-right: none;
+	color: #ffd600;
+	text-decoration: none;
+}
+nav a:first-child {
+	border-radius: 4px 0 0 4px;
+}
+nav a:last-child {
+	border-radius: 0 4px 4px 0;
+	border-right: 1px solid #ffd600;
+}
+nav a.selected {
+	background-color: #ffd600;
+	color: #323232;
+}
+
+fieldset {
+	border: none;
+	margin: 30px 0;
+	padding: 13px 0 0 0;
+}
+fieldset legend {
+	padding: 0;
+	font-size: 11px;
+	font-weight: bold;
+	text-transform: uppercase;
+	text-align: right;
+}
+.item {
+	position: relative;
+}
+.item label {
+	display: block;
+	width: 130px;
+	height: 37px;
+}
+.item .input-wrap {
+	position: absolute;
+	left: 140px;
+	right: 50px;
+	top: 0;
+	text-align: center;
+}
+.item .input-wrap input {
+	width: 100%;
+	border: none;
+	padding: 0;
+	margin: 0;
+	background: transparent;
+	color: white;
+	text-align: center;
+	font-size: 26px;
+	border: 2px solid #8f908a;
+	border-radius: 4px 0 0 0;
+	line-height: 35px;
+}
+.item + .item .input-wrap input {
+	border-radius: 0;
+}
+.item:last-child .input-wrap input {
+	border-radius: 0 0 0 4px;
+}
+.item .input-wrap input:disabled {
+	color: #8f908a;
+}
+.item .input-wrap input:focus {
+	outline: none;
+}
+.item .unit {
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 50px;
+	line-height: 35px;
+	text-align: center;
+	border: 2px solid #8f908a;
+	border-radius: 0 4px 4px 0;
+	border-left: 0;
+	line-height: 35px;
+}
+.item + .item .unit {
+	border-radius: 0;
+}
+.item:last-child .unit {
+	border-radius: 0 0 4px 0;
+}

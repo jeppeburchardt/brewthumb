@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>BrewThumb</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="stylesheet" href="styles/screen.css" media="screen">
+		<script type="text/javascript" src="scripts/lib/jquery-1.11.0.js"></script>
+		<script type="text/javascript" src="scripts/lib/knockout-3.0.0.js"></script>
+	</head>
+	<body>
+
+		<div id="top">
+			BrewThumb
+		</div>
+
+		<div id="pane">
+			<nav id="navigation" data-bind="foreach: tabs">
+				<a href="#" data-bind="text: $data,
+				css: { selected: $data == $root.selectedTab() },
+				click: $root.selectTab"></a>
+			</nav>
+
+			<div id="fermentation" data-bind="visible: $root.selectedTab() == 'Fermentation'">
+				<fieldset>
+					<legend>Brix to gravity</legend>
+					<div class="item">
+						<label>Brix reading
+							<div class="input-wrap"><input type="text" data-bind="value: $root.fermentationView.btg_brix, valueUpdate:'afterkeydown'" /></div>
+						</label>
+						<span class="unit">&deg;B</span>
+					</div>
+					<div class="item">
+						<label>Specific Gravity
+							<div class="input-wrap">
+								<input type="text" disabled="disabled" data-bind="value: $root.fermentationView.btg_gravity" />
+							</div>
+							<span class="unit">SG</span>
+						</label>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend>Calibrate brix reading during fermentation</legend>
+					<div class="item">
+						<label>Brix reading
+							<div class="input-wrap"><input type="text" data-bind="value: $root.fermentationView.cb_brix, valueUpdate:'afterkeydown'" /></div>
+						</label>
+						<span class="unit">&deg;B</span>
+					</div>
+					<div class="item">
+						<label>Original Gravity
+							<div class="input-wrap">
+								<input type="text" data-bind="value: $root.fermentationView.cb_og, valueUpdate:'afterkeydown'" />
+							</div>
+							<span class="unit">OG</span>
+						</label>
+					</div>
+					<div class="item">
+						<label>Specific Gravity
+							<div class="input-wrap">
+								<input type="text" disabled="disabled" data-bind="value: $root.fermentationView.cb_sg" />
+							</div>
+							<span class="unit">SG</span>
+						</label>
+					</div>
+				</fieldset>
+			</div>
+
+
+		</div>
+
+		<script type="text/javascript" src="scripts/brewthumb.js"></script>
+	</body>
+</html>
