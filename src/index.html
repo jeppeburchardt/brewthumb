@@ -23,6 +23,52 @@
 				click: $root.selectTab"></a>
 			</nav>
 
+			<div id="mashing" data-bind="visible: $root.selectedTab() == 'Mashing'">
+				<fieldset>
+					<legend>Calculate strike temperature</legend>
+					<div class="item">
+						<label>Target Mashing Temperature
+						<div class="input-wrap">
+							<input type="text" data-bind="value: $root.mashingView.cst_target, valueUpdate:'afterkeydown'" />
+						</div>
+						</label>
+						<span class="unit">&deg;C</span>
+					</div>
+					<div class="item">
+						<label>Grain Temperature
+						<div class="input-wrap">
+							<input type="text" data-bind="value: $root.mashingView.cst_grainTemp, valueUpdate:'afterkeydown'" />
+						</div>
+						</label>
+						<span class="unit">&deg;C</span>
+					</div>
+					<div class="item">
+						<label>Grain Weight
+						<div class="input-wrap">
+							<input type="text" data-bind="value: $root.mashingView.cst_grainAmount, valueUpdate:'afterkeydown'" />
+						</div>
+						</label>
+						<span class="unit">Kg</span>
+					</div>
+					<div class="item">
+						<label>Water
+						<div class="input-wrap">
+							<input type="text" data-bind="value: $root.mashingView.cst_waterAmount, valueUpdate:'afterkeydown'" />
+						</div>
+						</label>
+						<span class="unit">L</span>
+					</div>
+					<div class="item">
+						<label>Strike Water Temperature
+						<div class="input-wrap">
+							<input type="text" data-bind="value: $root.mashingView.cst_strikeTemp" disabled="disabled" />
+						</div>
+						</label>
+						<span class="unit">&deg;C</span>
+					</div>
+				</fieldset>
+			</div>
+
 			<div id="fermentation" data-bind="visible: $root.selectedTab() == 'Fermentation'">
 				<fieldset>
 					<legend>Brix to gravity</legend>

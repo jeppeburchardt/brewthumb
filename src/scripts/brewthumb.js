@@ -49,6 +49,24 @@ var BrewMath = {
 
 }
 
+var MashingView = function () {
+	var self = this;
+
+	self.cst_target = ko.observable(65);
+	self.cst_grainTemp = ko.observable(22);
+	self.cst_waterAmount = ko.observable(15);
+	self.cst_grainAmount = ko.observable(5.5);
+
+	self.cst_strikeTemp = ko.computed(function () {
+		var target = parseFloat(self.cst_target()) || 0,
+			grainTemp = parseFloat(self.cst_grainTemp()) || 0,
+			waterAmount = parseFloat(self.cst_waterAmount()) || 0,
+			grainAmount = parseFloat(self.cst_grainAmount()) || 0;
+		var strike = BrewMath.strikeTemperature(grainTemp, grainAmount, waterAmount, target);
+		return Math.round(strike * 10) / 10;
+	}, self);
+}
+
 var FermentationView = function () {
 	var self = this;
 
@@ -68,6 +86,7 @@ var ViewModel = function() {
 	var self = this;
 	self.tabs = ['Mashing', 'Boiling', 'Fermentation'];
 
+	self.mashingView = new MashingView();
 	self.fermentationView = new FermentationView();
 
 	self.selectedTab = ko.observable('Fermentation');
