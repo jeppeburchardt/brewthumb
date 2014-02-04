@@ -47,22 +47,90 @@ var BrewMath = {
 		return g;
 	}
 
+};
+
+(function (global, $) {
+	$('#settings').on('click', function (e) {
+		//e.preventDefault();
+		e.stopPropagation();
+		$('#settings ul').addClass('open');
+	});
+	$(document).on('click', function(e) {
+		$('#settings ul').removeClass('open');
+	});
+})(window, jQuery);
+
+var Settings = function () {
+	var self = this;
+
+	function selectedSystem(metric, imperial) {
+		return self.units()=='metric'?metric:imperial;
+	}
+
+	self.units = ko.observable('metric');
+	self.saveLocal = ko.observable(true);
+
+	self.smallWeightUnit = ko.computed(function() {
+		return self.units()=='metric'?'g':'oz';
+	});
+	self.fluidUnit = ko.computed(function () {
+		return self.units()=='metric'?'L':'gal';
+	});
+	self.largeWeightUnit = ko.computed(function () {
+		return self.units()=='metric'?'kg':'lb';
+	});
+	self.temperatureUnit = ko.computed(function () {
+		return self.units()=='metric'?'&deg;C':'&deg;F';
+	});	
+
+	//converts a value of the selected system to liters
+	self.inputToLiters = function (value) {
+		return selectedSystem(value, value*3.7854118);
+	};
+	//converts a value of the selected system to gallons
+	self.inputToGallons = function (value) {
+		return selectedSystem(value/3.7854118, value);
+	};
+	//converts a value of the selected system to kg
+	self.inputToKg = function (value) {
+		return selectedSystem(value, value*0.45359237);
+	};
+	//converts a value of the selected system to lb
+	self.inputToLb = function (value) {
+		return selectedSystem(value/0.45359237, value);
+	}
+	//converts a value of the selected system to celsius
+	self.inputToCelsius = function (value) {
+		return selectedSystem(value, (5.0/9.0) * (value - 32));
+	}
+	//converts a value of the selected system to fahrenheit
+	self.inputToFahrenheit = function (value) {
+		return selectedSystem((value + 32) / (5.0/9.0), value);
+	}
+	//converts a celsius value to the selected system
+	self.outputFromCelsius = function (value) {
+		return selectedSystem(value, (value + 32) / (5.0/9.0));
+	}
+	//converts a fahrenheit value to the selected system
+	self.outputFromFahrenheit = function (value) {
+		return selectedSystem((5.0/9.0) * (value - 32), value);
+	}
 }
+var settings = new Settings();
 
 var MashingView = function () {
 	var self = this;
 
-	self.cst_target = ko.observable(65);
-	self.cst_grainTemp = ko.observable(22);
-	self.cst_waterAmount = ko.observable(15);
-	self.cst_grainAmount = ko.observable(5.5);
-
-	self.cst_strikeTemp = ko.computed(function () {
-		var target = parseFloat(self.cst_target()) || 0,
-			grainTemp = parseFloat(self.cst_grainTemp()) || 0,
-			waterAmount = parseFloat(self.cst_waterAmount()) || 0,
-			grainAmount = parseFloat(self.cst_grainAmount()) || 0;
-		var strike = BrewMath.strikeTemperature(grainTemp, grainAmount, waterAmount, target);
+	self.cst_target = 		ko.observable(65);
+	self.cst_grainTemp = 	ko.observable(22);
+	self.cst_waterAmount = 	ko.observable(15);
+	self.cst_grainAmount = 	ko.observable(5.5);
+	self.cst_strikeTemp = 	ko.computed(function () {
+		var target = 		settings.inputToCelsius(parseFloat(self.cst_target()) || 0),
+			grainTemp = 	settings.inputToCelsius(parseFloat(self.cst_grainTemp()) || 0),
+			waterAmount = 	settings.inputToLiters(parseFloat(self.cst_waterAmount()) || 0),
+			grainAmount = 	settings.inputToKg(parseFloat(self.cst_grainAmount()) || 0);
+		var strike = 		settings.outputFromCelsius(BrewMath.strikeTemperature(grainTemp, grainAmount, waterAmount, target));
 		return Math.round(strike * 10) / 10;
 	}, self);
 }
@@ -88,8 +156,9 @@ var ViewModel = function() {
 
 	self.mashingView = new MashingView();
 	self.fermentationView = new FermentationView();
+	self.settings = settings;
 
-	self.selectedTab = ko.observable('Fermentation');
+	self.selectedTab = ko.observable('Mashing');
 	self.selectTab = function(tab) { self.selectedTab(tab); };
 
 };

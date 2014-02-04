@@ -14,6 +14,27 @@
 
 		<div id="top">
 			BrewThumb
+			<div id="settings">
+				<a href="#">Settings</a>
+				<ul>
+					<li>
+						<label>
+							<input type="checkbox" data-bind="checked: $root.settings.saveLocal" />
+							Save to local storage
+						</label>
+					</li>
+					<li>
+						<label>
+							<input type="radio" name="units" value="metric" data-bind="checked: $root.settings.units" />
+							Metric system
+						</label>
+						<label>
+							<input type="radio" name="units" value="imperials" data-bind="checked: $root.settings.units" />
+							Imperial system
+						</label>
+					</li>
+				</ul>
+			</div>
 		</div>
 
 		<div id="pane">
@@ -27,12 +48,12 @@
 				<fieldset>
 					<legend>Calculate strike temperature</legend>
 					<div class="item">
-						<label>Target Mashing Temperature
+						<label>Mash Target
 						<div class="input-wrap">
 							<input type="text" data-bind="value: $root.mashingView.cst_target, valueUpdate:'afterkeydown'" />
 						</div>
 						</label>
-						<span class="unit">&deg;C</span>
+						<span class="unit" data-bind="html: $root.settings.temperatureUnit"></span>
 					</div>
 					<div class="item">
 						<label>Grain Temperature
@@ -40,7 +61,7 @@
 							<input type="text" data-bind="value: $root.mashingView.cst_grainTemp, valueUpdate:'afterkeydown'" />
 						</div>
 						</label>
-						<span class="unit">&deg;C</span>
+						<span class="unit" data-bind="html: $root.settings.temperatureUnit"></span>
 					</div>
 					<div class="item">
 						<label>Grain Weight
@@ -48,7 +69,7 @@
 							<input type="text" data-bind="value: $root.mashingView.cst_grainAmount, valueUpdate:'afterkeydown'" />
 						</div>
 						</label>
-						<span class="unit">Kg</span>
+						<span class="unit" data-bind="html: $root.settings.largeWeightUnit"></span>
 					</div>
 					<div class="item">
 						<label>Water
@@ -56,15 +77,15 @@
 							<input type="text" data-bind="value: $root.mashingView.cst_waterAmount, valueUpdate:'afterkeydown'" />
 						</div>
 						</label>
-						<span class="unit">L</span>
+						<span class="unit" data-bind="html: $root.settings.fluidUnit"></span>
 					</div>
 					<div class="item">
-						<label>Strike Water Temperature
+						<label>Strike Water
 						<div class="input-wrap">
 							<input type="text" data-bind="value: $root.mashingView.cst_strikeTemp" disabled="disabled" />
 						</div>
 						</label>
-						<span class="unit">&deg;C</span>
+						<span class="unit" data-bind="html: $root.settings.temperatureUnit"></span>
 					</div>
 				</fieldset>
 			</div>
