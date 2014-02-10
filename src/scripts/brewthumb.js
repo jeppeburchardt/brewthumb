@@ -4,17 +4,17 @@ var BrewMath = {
 	 * Converts a brix reading to specific gravity using original gravity
 	 */
 	brixToSg: function (brix, originalGravity) {
-	    var sg = 0;
-	    var og = (originalGravity - 1) * 1000;
-	    var ob = 0.02 + 0.25687 * og - 0.00019224 * og * og;
-	    ob = Math.round(ob*10)/10;
-	    sg = ((1.001843 - 0.002318474*ob - 0.000007775*ob*ob - 0.000000034*ob*ob*ob + 0.00574*brix + 0.00003344*brix*brix + 0.000000086*brix*brix*brix)-1)*1000;
-	    if (sg == 0) { return 1.000 }
-	    if (sg < 0) {
-	        sg = 1000 + sg;
-	        return sg / 1000;
-	    }
-	    return ((sg / 1000) + 1);
+		var sg = 0;
+		var og = (originalGravity - 1) * 1000;
+		var ob = 0.02 + 0.25687 * og - 0.00019224 * og * og;
+		ob = Math.round(ob*10)/10;
+		sg = ((1.001843 - 0.002318474*ob - 0.000007775*ob*ob - 0.000000034*ob*ob*ob + 0.00574*brix + 0.00003344*brix*brix + 0.000000086*brix*brix*brix)-1)*1000;
+		if (sg === 0) { return 1.000; }
+		if (sg < 0) {
+			sg = 1000 + sg;
+			return sg / 1000;
+		}
+		return ((sg / 1000) + 1);
 	},
 
 	/**
@@ -22,7 +22,7 @@ var BrewMath = {
 	 */
 	brixToGravity: function (brix) {
 		brix = brix || 0;
-	    return 1.000898 + 0.003859118 * brix + 0.00001370735 * brix * brix + 0.00000003742517 * brix * brix * brix;
+		return 1.000898 + 0.003859118 * brix + 0.00001370735 * brix * brix + 0.00000003742517 * brix * brix * brix;
 	},
 
 	/**
@@ -98,42 +98,42 @@ var Settings = function () {
 	//converts a value of the selected system to lb
 	self.inputToLb = function (value) {
 		return selectedSystem(value/0.45359237, value);
-	}
+	};
 	//converts a value of the selected system to celsius
 	self.inputToCelsius = function (value) {
 		return selectedSystem(value, (5.0/9.0) * (value - 32));
-	}
+	};
 	//converts a value of the selected system to fahrenheit
 	self.inputToFahrenheit = function (value) {
 		return selectedSystem((value + 32) / (5.0/9.0), value);
-	}
+	};
 	//converts a celsius value to the selected system
 	self.outputFromCelsius = function (value) {
 		return selectedSystem(value, (value + 32) / (5.0/9.0));
-	}
+	};
 	//converts a fahrenheit value to the selected system
 	self.outputFromFahrenheit = function (value) {
 		return selectedSystem((5.0/9.0) * (value - 32), value);
-	}
-}
+	};
+};
 var settings = new Settings();
 
 var MashingView = function () {
 	var self = this;
 
-	self.cst_target = 		ko.observable(65);
-	self.cst_grainTemp = 	ko.observable(22);
-	self.cst_waterAmount = 	ko.observable(15);
-	self.cst_grainAmount = 	ko.observable(5.5);
-	self.cst_strikeTemp = 	ko.computed(function () {
-		var target = 		settings.inputToCelsius(parseFloat(self.cst_target()) || 0),
-			grainTemp = 	settings.inputToCelsius(parseFloat(self.cst_grainTemp()) || 0),
-			waterAmount = 	settings.inputToLiters(parseFloat(self.cst_waterAmount()) || 0),
-			grainAmount = 	settings.inputToKg(parseFloat(self.cst_grainAmount()) || 0);
-		var strike = 		settings.outputFromCelsius(BrewMath.strikeTemperature(grainTemp, grainAmount, waterAmount, target));
+	self.cst_target = ko.observable(65);
+	self.cst_grainTemp = ko.observable(22);
+	self.cst_waterAmount = ko.observable(15);
+	self.cst_grainAmount = ko.observable(5.5);
+	self.cst_strikeTemp = ko.computed(function () {
+		var target = settings.inputToCelsius(parseFloat(self.cst_target()) || 0),
+			grainTemp = settings.inputToCelsius(parseFloat(self.cst_grainTemp()) || 0),
+			waterAmount = settings.inputToLiters(parseFloat(self.cst_waterAmount()) || 0),
+			grainAmount = settings.inputToKg(parseFloat(self.cst_grainAmount()) || 0);
+		var strike = settings.outputFromCelsius(BrewMath.strikeTemperature(grainTemp, grainAmount, waterAmount, target));
 		return Math.round(strike * 10) / 10;
 	}, self);
-}
+};
 
 var FermentationView = function () {
 	var self = this;
