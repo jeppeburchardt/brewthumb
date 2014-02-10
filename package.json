@@ -4,7 +4,8 @@
   "description": "brewthumb",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "grunt": "node_modules/.bin/grunt"
   },
   "repository": {
     "type": "git",
