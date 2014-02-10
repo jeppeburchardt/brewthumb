@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "test",
-    "grunt": "node_modules/.bin/grunt"
+    "grunt": "node node_modules/grunt-cli/bin/grunt"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
   "devDependencies": {
     "grunt": "~0.4.2",
     "grunt-contrib-jshint": "~0.8.0",
-    "grunt-contrib-qunit": "~0.4.0"
+    "grunt-contrib-qunit": "~0.4.0",
+    "grunt-cli": "~0.1.13"
   }
 }
