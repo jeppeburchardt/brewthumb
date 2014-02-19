@@ -6,13 +6,19 @@ module.exports = function(grunt) {
 			options: {
 				separator: ';'
 			},
-			dist: {
+			js: {
 				src: [
 					'src/scripts/lib/jquery-1.11.0.js',
 					'src/scripts/lib/knockout-3.0.0.js',
 					'src/scripts/brewthumb.js',
 				],
-				dest: 'bin/scripts/<%= pkg.name %>.js'
+				dest: 'tmp/<%= pkg.name %>.js'
+			},
+			css: {
+				src: [
+					'src/styles/screen.css'
+				],
+				dest: 'tmp/<%= pkg.name %>.css'
 			}
 		},
 		jshint: {
@@ -31,27 +37,28 @@ module.exports = function(grunt) {
 			},
 			dist: {
 				files: {
-					'bin/scripts/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
+					'tmp/<%= pkg.name %>.min.js': ['<%= concat.js.dest %>']
 				}
 			}
 		},
 		watch: {
 			files: ['<%= jshint.files %>'],
-			tasks: ['jshint', 'concat', 'uglify', 'rename']
+			tasks: ['jshint', 'concat', 'uglify', 'copy']
 		},
-		rename: {
-			moveHtml: {
-				src: 'src/index.html',
-				dest: 'bin/index.html'
-			},
+		copy: {
+			dist: {
+				files: [
+					{expand: true, flatten: true, src: ['src/index.html', 'tmp/<%= pkg.name %>.min.js', 'tmp/<%= pkg.name %>.css'], 'dest': 'bin/', 'filter':'isFile'}
+				]
+			}
 		}
 	});
 
-	grunt.loadNpmTasks('grunt-rename');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-copy');
 
-	grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'rename']);
+	grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'copy']);
 };
