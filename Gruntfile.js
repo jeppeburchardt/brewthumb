@@ -42,13 +42,13 @@ module.exports = function(grunt) {
 			}
 		},
 		watch: {
-			files: ['<%= jshint.files %>'],
+			files: ['src/**.*'],
 			tasks: ['jshint', 'concat', 'uglify', 'copy']
 		},
 		copy: {
 			dist: {
 				files: [
-					{expand: true, flatten: true, src: ['src/index.html', 'tmp/<%= pkg.name %>.min.js', 'tmp/<%= pkg.name %>.css'], 'dest': 'bin/', 'filter':'isFile'}
+					{expand: true, flatten: true, src: ['src/index.html', 'tmp/**.js', 'tmp/**.css'], 'dest': 'bin/', 'filter':'isFile'}
 				]
 			}
 		}
