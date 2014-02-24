@@ -74,7 +74,8 @@ body {
 }
 #settings label {
 	display: block;
-	padding: 15px 25px
+	padding: 15px 25px;
+	font-size: 16px;
 }
 #settings input {
 	margin-right: 15px;
@@ -158,7 +159,7 @@ fieldset legend {
 .item:last-child .input-wrap input {
 	border-radius: 0 0 0 4px;
 }
-.item .input-wrap input:disabled {
+.item .input-wrap input[readonly="readonly"] {
 	color: #8f908a;
 }
 .item .input-wrap input:focus {

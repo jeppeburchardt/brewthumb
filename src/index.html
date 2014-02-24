@@ -80,7 +80,7 @@
 					<div class="item">
 						<label>Strike Water
 						<div class="input-wrap">
-							<input type="text" type="number" step="0.01" data-bind="value: $root.mashingView.cst_strikeTemp" disabled="disabled" />
+							<input type="text" type="number" step="0.01" data-bind="value: $root.mashingView.cst_strikeTemp" readonly="readonly" />
 						</div>
 						</label>
 						<span class="unit" data-bind="html: $root.settings.temperatureUnit"></span>
@@ -100,7 +100,7 @@
 					<div class="item">
 						<label>Specific Gravity
 							<div class="input-wrap">
-								<input type="text" type="number" step="0.01" disabled="disabled" data-bind="value: $root.fermentationView.btg_gravity" />
+								<input type="text" type="number" step="0.01" readonly="readonly" data-bind="value: $root.fermentationView.btg_gravity" />
 							</div>
 							<span class="unit">SG</span>
 						</label>
@@ -125,7 +125,7 @@
 					<div class="item">
 						<label>Specific Gravity
 							<div class="input-wrap">
-								<input type="text" type="number" step="0.01" disabled="disabled" data-bind="value: $root.fermentationView.cb_sg" />
+								<input type="text" type="number" step="0.01" readonly="readonly" data-bind="value: $root.fermentationView.cb_sg" />
 							</div>
 							<span class="unit">SG</span>
 						</label>
