@@ -8,14 +8,18 @@ body {
 	text-shadow: 0 -1px black;
 }
 #top {
+	position: relative;
 	background-color: black;
-	padding: 5px 10px;
+	padding: 10px 25px;
 	color: white;
 	text-shadow: none;
-	font-weight: bold;
+	text-align: center;
 }
 #top span {
 	line-height: 21px;
+	text-transform: uppercase;
+	text-align: center;
+	font-weight: lighter;
 }
 #top:after {
 	display: block;
@@ -29,13 +33,13 @@ body {
 }
 
 #settings {
+	position: absolute;
+	right: 25px;
+	top: 10px;
 	font-weight: normal;
 	font-size: 10px;
+	text-align: left;
 	color: #666;
-	float: right;
-	background-color: #333;
-	padding: 5px 10px;
-	border-radius: 4px;
 }
 #settings a:link,
 #settings a:visited {
@@ -43,6 +47,10 @@ body {
 	font-size: 10px;
 	text-transform: uppercase;
 	text-decoration: none;
+	display: block;
+	background-color: #333;
+	padding: 5px 10px;
+	border-radius: 4px;
 }
 #settings ul {
 	position: absolute;

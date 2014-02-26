@@ -45,6 +45,42 @@ var BrewMath = {
 			g = g + '0';
 		}
 		return g;
+	},
+
+	/**
+	 * Formats a number as a readable ABV string
+	 */
+	displayABV: function (abv) {
+		abv = Math.round( abv * 10 ) / 10;
+		return abv + '%';
+	},
+
+	/**
+	 * Estimate ABV
+	 */
+	estimateABV: function (og, sg) {
+		return (og - sg) * 131;
+	},
+
+	/**
+	 * Hydrometer Temperature Corrections
+	 * http://hbd.org/brewery/library/HydromCorr0992.html
+	 */
+	specificGravityTemperatureCorrection: function (sg, tempC) {
+		//Convert sg to a floating point number
+		sg=parseFloat(sg);
+		//Convert celsisus values to fahrenheit 
+		var temp=(9/5)*tempC+32;
+		//Calculates SG correction for 59F from HBD http://hbd.org/brewery/library/HydromCorr0992.html
+		var correction=1.313454-(0.132674*temp)+(0.002057793*temp*temp)-(0.000002627634*temp*temp*temp);
+		//Round off correction values and convert to SG scale
+		correction=(Math.round(correction))/1000;
+		//Adds SG correction to the measured SG
+		var adjustedgravity=correction+sg;
+		//Round off adjustedgravity
+		adjustedgravity=Math.round(adjustedgravity * 1000)/1000;
+		//sends the calculations back to a form named "entry"
+		return adjustedgravity;
 	}
 
 };
@@ -148,6 +184,37 @@ var FermentationView = function () {
 	self.cb_sg = ko.computed(function () {
 		return BrewMath.displayGravity(BrewMath.brixToSg(parseFloat(self.cb_brix()), parseFloat(self.cb_og())));
 	}, self);
+
+	self.cb_abv = ko.computed(function () {
+		return BrewMath.displayABV(
+			BrewMath.estimateABV(
+				parseFloat(self.cb_og()),
+				parseFloat(self.cb_sg())
+			)
+		);
+	});
+
+	self.sgtc_temp = ko.observable(22);
+	self.sgtc_sg = ko.observable('1.010');
+	self.sgtc_asg = ko.computed(function () {
+		var temp = settings.inputToCelsius(parseFloat(self.sgtc_temp()));
+		return BrewMath.displayGravity(
+			BrewMath.specificGravityTemperatureCorrection(
+				parseFloat(self.sgtc_sg()),
+				temp
+			)
+		);
+	});
+
+	self.sgtc_og = ko.observable('1.050');
+	self.sgtc_abv = ko.computed(function () {
+		return BrewMath.displayABV(
+			BrewMath.estimateABV(
+				parseFloat(self.sgtc_og()), 
+				parseFloat(self.sgtc_asg())
+			)
+		);
+	});
 };
 
 var ViewModel = function() {
