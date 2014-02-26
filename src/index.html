@@ -188,9 +188,40 @@
 				</fieldset>
 			</div>
 
+			<div id="fermentation" data-bind="visible: $root.selectedTab() == 'Bottling'">
+				<fieldset>
+					<legend>Bottle Carbonation Calculator</legend>
+					<div class="item">
+						<label>Volume
+							<div class="input-wrap"><input type="number" step="0.1" data-bind="value: $root.bottlingView.co2_volume, valueUpdate:'afterkeydown'" /></div>
+						</label>
+						<span class="unit" data-bind="html: $root.settings.fluidUnit"></span>
+					</div>
+					<div class="item">
+						<label>Storage Temperature
+							<div class="input-wrap"><input type="number" step="0.5" data-bind="value: $root.bottlingView.co2_temp, valueUpdate:'afterkeydown'" /></div>
+						</label>
+						<span class="unit" data-bind="html: $root.settings.temperatureUnit"></span>
+					</div>
+					<div class="item">
+						<label>Target Carbonation Level
+							<div class="input-wrap"><input type="number" step="0.1" data-bind="value: $root.bottlingView.co2_target, valueUpdate:'afterkeydown'" /></div>
+						</label>
+						<span class="unit">CO2</span>
+					</div><div class="item">
+						<label>Sucrose
+							<div class="input-wrap"><input readonly="readonly" type="number" data-bind="value: $root.bottlingView.co2_sugar, valueUpdate:'afterkeydown'" /></div>
+						</label>
+						<span class="unit" data-bind="html: $root.settings.smallWeightUnit"></span>
+					</div>
+					
+					
+				</fieldset>
+			</div>
+
 
 		</div>
 
-		<script type="text/javascript" src="brewthumb.js"></script>
+		<script type="text/javascript" src="brewthumb.min.js"></script>
 	</body>
 </html>
