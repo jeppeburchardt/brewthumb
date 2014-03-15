@@ -134,14 +134,14 @@ var BrewMath = {
 };
 
 (function (global, $) {
-	$('#settings').on('click', function (e) {
+	$('#settings a').on('click', function (e) {
 		//e.preventDefault();
 		e.stopPropagation();
-		$('#settings ul').addClass('open');
+		$('#settings').toggleClass('open');
 	});
-	$(document).on('click', function(e) {
-		$('#settings ul').removeClass('open');
-	});
+	//$(document).on('click', function(e) {
+	//	$('#settings').removeClass('open');
+	//});
 })(window, jQuery);
 
 var Settings = function () {
