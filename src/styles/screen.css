@@ -1,5 +1,5 @@
 body {
-	margin: 0;
+	margin: 40px 0 0 0;
 	padding: 0;
 	font-family: helvetica, arial, sans-serif;
 	font-size: 14px;
@@ -8,14 +8,22 @@ body {
 	text-shadow: 0 -1px black;
 }
 #top {
+	position: fixed;
+	width: 100%;
+	top: 0;
 	background-color: black;
-	padding: 5px 10px;
+	padding: 10px 25px;
 	color: white;
 	text-shadow: none;
-	font-weight: bold;
+	text-align: center;
+	z-index: 1024;
+	box-sizing: border-box;
 }
 #top span {
 	line-height: 21px;
+	text-transform: uppercase;
+	text-align: center;
+	font-weight: lighter;
 }
 #top:after {
 	display: block;
@@ -29,44 +37,90 @@ body {
 }
 
 #settings {
-	font-weight: normal;
-	font-size: 10px;
-	color: #666;
-	float: right;
-	background-color: #333;
-	padding: 5px 10px;
-	border-radius: 4px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	text-align: left;
 }
 #settings a:link,
 #settings a:visited {
 	color: #fff;
-	font-size: 10px;
-	text-transform: uppercase;
-	text-decoration: none;
+	display: block;
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	width: 40px;
+	height: 30px;
+	background-color: #333;
+	border-radius: 4px;
+	transition: all 200ms;
 }
+#settings .line {
+	position: absolute;
+	left: 8px;
+	top: 50%;
+	margin-top: -1px;
+	right: 8px;
+	height: 2px;
+	width: 24px;
+	background-color: #fff;
+	border-radius: 2px;
+	transition: all 200ms;
+}
+#settings .line:first-child {
+	top: 9px;
+}
+#settings .line:last-child {
+	top: auto;
+	bottom: 8px;
+}
+#settings.open a {
+	border-radius: 15px;
+	width: 30px;
+	left: 10px;
+}
+#settings.open .line {
+	opacity: 0;
+	left: 5px;
+	height: 3px;
+	width: 20px;
+}
+#settings.open .line:first-child {
+	-webkit-transform: rotate(45deg);
+	top: 14px;
+	opacity: 1;
+}
+#settings.open .line:last-child {
+	-webkit-transform: rotate(-45deg);
+	bottom: 14px;	
+	opacity: 1;
+}
+
 #settings ul {
 	position: absolute;
-	width: 250px;
-	top: -250px;
-	right: 5px;
+	width: 75%;
+	left: -75%;
+	top: 41px;
 	list-style: none;
 	padding: 0;
 	margin: 0;
 	background-color: #EFEFEF;
 	z-index: 1234;
-	transition: top 400ms;
+	color: #666;
+	transition: left 400ms;
 }
-#settings ul:before {
+/*#settings ul:before {
 	display: block;
 	content: "";
 	position: absolute;
 	top: -20px;
-	right: 25px;
+	left: 25px;
 	border: 10px solid;
 	border-color: rgba(0,0,0,0) rgba(0,0,0,0) #EFEFEF rgba(0,0,0,0);
-}
-#settings ul.open {
-	top: 43px;
+}*/
+#settings.open ul {
+	left: 0;
 }
 #settings li {
 	border-top: 1px solid #FFF;
