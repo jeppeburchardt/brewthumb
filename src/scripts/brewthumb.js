@@ -37,6 +37,14 @@ var BrewMath = {
 	},
 
 	/**
+	 * Calculates the amount of water needed to add to a mash to raise the temperature
+	 * and perform an infusion step
+	 */
+	infusionAmount: function (currentMashCelsius, targetCelsius, kgGrain, litersWater, infusionCelsius) {
+		return (targetCelsius - currentMashCelsius) * (0.2 * kgGrain + litersWater) / (infusionCelsius - targetCelsius);
+	},
+
+	/**
 	 * Formats a number as a readable gravity messure
 	 */
 	displayGravity: function (g) {
@@ -215,6 +223,10 @@ var Settings = function () {
 	self.outputFromOz = function (value) {
 		return selectedSystem(value/0.0352739619496, value);
 	};
+	//converts Liters to the selected system
+	self.outputFromLiters = function (value) {
+		return selectedSystem(value, value/3.7854118);
+	};
 };
 var settings = new Settings();
 
@@ -237,22 +249,53 @@ var MashingView = function () {
 	self.steps = ko.observableArray();
 
 	self.addStep = function () {
-		self.steps.push(new MashStepViewModel());
+		self.steps.push(new MashStepViewModel(self));
 	};
 	self.removeStep = function (step) {
 		self.steps.remove(step);
 	};
 };
 
-var MashStepViewModel = function () {
+var MashStepViewModel = function (mashingViewModel) {
 	var self = this;
+	self.mashingViewModel = mashingViewModel;
+
+	self.getPrevius = function () {
+		var currentMashCelsius = settings.inputToCelsius(parseFloat(self.mashingViewModel.cst_target()) || 0), //TODO: convert this if imperial units is selected
+			kgGrain = settings.inputToKg(parseFloat(self.mashingViewModel.cst_grainAmount()) || 0), 
+			litersWater = settings.inputToLiters(parseFloat(self.mashingViewModel.cst_waterAmount()) || 0),
+			p = null;
+		for (var i = 0; i < self.mashingViewModel.steps().length; i++) {
+			if (self.mashingViewModel.steps()[i] === self) {
+				break;
+			} else {
+				p = self.mashingViewModel.steps()[i];
+				litersWater += settings.inputToLiters(parseFloat(p.water()) || 0);
+				currentMashCelsius = settings.inputToCelsius(parseFloat(p.target()) || 0);
+			}	
+		}
+		return {
+			litersWater:litersWater,
+			currentMashCelsius:currentMashCelsius,
+			kgGrain:kgGrain
+		};
+	};
+
+	self.grain = function () {
+		return settings.inputToKg(parseFloat(self.mashingViewModel.cst_grainAmount()) || 0);
+	};
 
 	self.target = ko.observable(70);
-	self.water = ko.computed(function () {
-		var target = settings.inputToCelsius(parseFloat(self.target()) || 0);
-		return target / 2; //TODO calc step
-	});
 	self.temperature = ko.observable(100);
+
+	self.water = ko.computed(function () {
+		var targetCelsius = settings.inputToCelsius(parseFloat(self.target()) || 0);
+		var p = self.getPrevius();
+		var infusionCelsius = settings.inputToCelsius(parseFloat(self.temperature()) || 0);
+		var result = BrewMath.infusionAmount(p.currentMashCelsius, targetCelsius, p.kgGrain, p.litersWater, infusionCelsius);
+		return Math.round(settings.outputFromLiters(result) * 100) / 100;
+	});
+	
 };
 
 var FermentationView = function () {
