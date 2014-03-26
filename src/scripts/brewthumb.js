@@ -233,6 +233,26 @@ var MashingView = function () {
 		var strike = settings.outputFromCelsius(BrewMath.strikeTemperature(grainTemp, grainAmount, waterAmount, target));
 		return Math.round(strike * 10) / 10;
 	}, self);
+
+	self.steps = ko.observableArray();
+
+	self.addStep = function () {
+		self.steps.push(new MashStepViewModel());
+	};
+	self.removeStep = function (step) {
+		self.steps.remove(step);
+	};
+};
+
+var MashStepViewModel = function () {
+	var self = this;
+
+	self.target = ko.observable(70);
+	self.water = ko.computed(function () {
+		var target = settings.inputToCelsius(parseFloat(self.target()) || 0);
+		return target / 2; //TODO calc step
+	});
+	self.temperature = ko.observable(100);
 };
 
 var FermentationView = function () {
