@@ -4,6 +4,9 @@ require.config({
 		'jquery': 'lib/jquery',
 		'knockout': 'lib/knockout',
 		'brewmath': 'lib/brewmath'
+	},
+	uglify: {
+		max_line_length: 500
 	}
 });
 
