@@ -234,11 +234,20 @@ fieldset {
 	padding: 13px 0 0 0;
 }
 fieldset legend {
-	padding: 0;
+	width: 100%;
+	position: relative;
 	font-size: 11px;
 	font-weight: bold;
 	text-transform: uppercase;
 	text-align: right;
+}
+fieldset legend span {
+	margin-right: 25px;
+}
+fieldset legend button.remove {
+	position: absolute;
+	top: -5px;
+	right: 0;
 }
 .item {
 	position: relative;
