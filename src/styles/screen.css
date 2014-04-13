@@ -90,11 +90,15 @@ body {
 }
 #settings.open .line:first-child {
 	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	transform: rotate(45deg);
 	top: 14px;
 	opacity: 1;
 }
 #settings.open .line:last-child {
 	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	transform: rotate(-45deg);
 	bottom: 14px;	
 	opacity: 1;
 }
@@ -209,6 +213,8 @@ button.remove:after {
 	display: block;
 	position: absolute;
 	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	transform: rotate(45deg);
 	background-color: #323232;
 	height: 2px;
 	width: 10px;
@@ -218,6 +224,8 @@ button.remove:after {
 }
 button.remove:after {
 	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	transform: rotate(-45deg);
 }
 
 fieldset {
