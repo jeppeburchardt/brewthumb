@@ -2,17 +2,26 @@ module.exports = function(grunt) {
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
+		requirejs: {
+			compile: {
+				options: {
+					baseUrl: 'src/scripts',
+					mainConfigFile: 'src/scripts/config.js',
+					out: 'tmp/<%= pkg.name %>-built.js',
+					name: 'app'
+				}
+			}
+		},
 		concat: {
 			options: {
 				separator: ';'
 			},
 			js: {
 				src: [
-					'src/scripts/lib/jquery-1.11.0.js',
-					'src/scripts/lib/knockout-3.0.0.js',
-					'src/scripts/brewthumb.js',
+					'src/scripts/lib/require.js',
+					'tmp/<%= pkg.name %>-built.js'
 				],
-				dest: 'tmp/<%= pkg.name %>.js'
+				dest:'tmp/<%= pkg.name %>.js'
 			},
 			css: {
 				src: [
@@ -21,29 +30,9 @@ module.exports = function(grunt) {
 				dest: 'tmp/<%= pkg.name %>.css'
 			}
 		},
-		jshint: {
-			files: ['Gruntfile.js', 'src/scripts/*.js'],
-			options: {
-				globals: {
-					jQuery: true,
-					console: true,
-					window: true
-				}
-			}
-		},
-		uglify: {
-			options: {
-				banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
-			},
-			dist: {
-				files: {
-					'tmp/<%= pkg.name %>.min.js': ['<%= concat.js.dest %>']
-				}
-			}
-		},
 		watch: {
 			files: ['src/**.*'],
-			tasks: ['jshint', 'concat', 'uglify', 'copy']
+			tasks: ['requirejs', 'concat', 'copy']
 		},
 		copy: {
 			dist: {
@@ -73,13 +62,12 @@ module.exports = function(grunt) {
 		}
 	});
 
+	grunt.loadNpmTasks('grunt-contrib-requirejs');
 	grunt.loadNpmTasks('grunt-contrib-concat');
-	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-multiresize');
 
 	grunt.registerTask('icons', ['multiresize']);
-	grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'copy']);
+	grunt.registerTask('default', ['requirejs', 'concat', 'copy']);
 };
