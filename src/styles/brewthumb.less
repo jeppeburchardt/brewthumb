@@ -1,0 +1,43 @@
+body {
+	margin: 40px 0 0 0;
+	padding: 0;
+	font-family: helvetica, arial, sans-serif;
+	font-size: 14px;
+	background-color: #323232;
+	color: #8f908a;
+	text-shadow: 0 -1px black;
+}
+#top {
+	position: fixed;
+	width: 100%;
+	top: 0;
+	background-color: black;
+	padding: 10px 25px;
+	color: white;
+	text-shadow: none;
+	text-align: center;
+	z-index: 1;
+	box-sizing: border-box;
+}
+#top span {
+	line-height: 21px;
+	text-transform: uppercase;
+	text-align: center;
+	font-weight: lighter;
+}
+#top:after {
+	display: block;
+	content: "";
+	clear: both;
+}
+#pane {
+	margin: auto;
+	padding: 25px;
+	max-width: 500px;
+}
+
+@import "settings.less";
+@import "nav.less";
+@import "buttons.less";
+@import "fieldsets.less";
+@import "inputs.less";

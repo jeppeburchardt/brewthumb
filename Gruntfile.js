@@ -12,6 +12,16 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+		less: {
+			styles: {
+				options: {
+					compress: true
+				},
+				files: {
+					'tmp/brewthumb.css': 'src/styles/brewthumb.less'
+				}	
+			}
+		},
 		concat: {
 			options: {
 				separator: ';'
@@ -31,8 +41,8 @@ module.exports = function(grunt) {
 			}
 		},
 		watch: {
-			files: ['src/**/*.js', 'src/**/*.css', 'src/*.html'],
-			tasks: ['requirejs', 'concat', 'copy']
+			files: ['src/**/*.js', 'src/**/*.less', 'src/*.html'],
+			tasks: ['less', 'requirejs', 'concat', 'copy']
 		},
 		copy: {
 			dist: {
@@ -62,6 +72,7 @@ module.exports = function(grunt) {
 		}
 	});
 
+	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-watch');
@@ -69,5 +80,5 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-multiresize');
 
 	grunt.registerTask('icons', ['multiresize']);
-	grunt.registerTask('default', ['requirejs', 'concat', 'copy']);
+	grunt.registerTask('default', ['less', 'requirejs', 'concat', 'copy']);
 };

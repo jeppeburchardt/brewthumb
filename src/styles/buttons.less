@@ -1,0 +1,58 @@
+.buttons:after {
+	display: block;
+	content: "";
+	clear: both;
+}
+.buttons button {
+	float: right;
+}
+button {
+	text-align: center;
+	padding: 5px 20px;
+	border: 1px solid #ffd600;
+	color: #ffd600;
+	text-decoration: none;
+	border-radius: 4px;
+	background-color: transparent;
+}
+button:focus {
+	outline: none;
+}
+button:active {
+	background-color: #ffd600;
+	color: #323232;
+}
+button.remove {
+	border: 0;
+	background-color: #8f908a;
+	display: inline-block;
+	position: relative;
+	height: 20px;
+	width: 20px;
+	padding: 0;
+	top: 5px;
+	border-radius: 10px;
+	margin-left: 5px;
+}
+button.remove span {
+	display: none;
+}
+button.remove:before,
+button.remove:after {
+	display: block;
+	position: absolute;
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	transform: rotate(45deg);
+	background-color: #323232;
+	height: 2px;
+	width: 10px;
+	top: 9px;
+	left: 5px;
+	content: "";
+}
+button.remove:after {
+	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+}

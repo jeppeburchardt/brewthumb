@@ -1,0 +1,30 @@
+nav {
+	display: table;
+	width: 100%;
+	font-size: 12px;
+	text-shadow: none;
+
+	a:link, 
+	a:visited {
+		display: table-cell;
+		width: 25%;
+		text-align: center;
+		padding: 5px;
+		border: 1px solid #ffd600;
+		border-right: none;
+		color: #ffd600;
+		text-decoration: none;
+	}
+
+	a:first-child {
+		border-radius: 4px 0 0 4px;
+	}
+	a:last-child {
+		border-radius: 0 4px 4px 0;
+		border-right: 1px solid #ffd600;
+	}
+	a.selected {
+		background-color: #ffd600;
+		color: #323232;
+	}
+}
