@@ -1,58 +1,67 @@
-.buttons:after {
-	display: block;
-	content: "";
-	clear: both;
-}
-.buttons button {
-	float: right;
+.buttons {
+
+	&:after {
+		display: block;
+		clear: both;
+		content: "";
+	}
+
+	button {
+		float: right;
+	}
 }
 button {
-	text-align: center;
 	padding: 5px 20px;
 	border: 1px solid @identity-color;
-	color: @identity-color;
-	text-decoration: none;
 	border-radius: 4px;
 	background-color: transparent;
-}
-button:focus {
-	outline: none;
-}
-button:active {
-	background-color: @identity-color;
-	color: @background-color;
-}
-button.remove {
-	border: 0;
-	background-color: @default-color;
-	display: inline-block;
-	position: relative;
-	height: 20px;
-	width: 20px;
-	padding: 0;
-	top: 5px;
-	border-radius: 10px;
-	margin-left: 5px;
-}
-button.remove span {
-	display: none;
-}
-button.remove:before,
-button.remove:after {
-	display: block;
-	position: absolute;
-	-webkit-transform: rotate(45deg);
-	-moz-transform: rotate(45deg);
-	transform: rotate(45deg);
-	background-color: @background-color;
-	height: 2px;
-	width: 10px;
-	top: 9px;
-	left: 5px;
-	content: "";
-}
-button.remove:after {
-	-webkit-transform: rotate(-45deg);
-	-moz-transform: rotate(-45deg);
-	transform: rotate(-45deg);
+	color: @identity-color;
+	text-align: center;
+	text-decoration: none;
+	
+	&:focus {
+		outline: none;
+	}
+	&:active {
+		background-color: @identity-color;
+		color: @background-color;
+	}
+
+	&.remove {
+		position: relative;
+		top: 5px;
+		display: inline-block;
+		margin-left: 5px;
+		padding: 0;
+		width: 20px;
+		height: 20px;
+		border: 0;
+		border-radius: 10px;
+		background-color: @default-color;
+
+		span {
+			display: none;
+		}
+
+		&:before,
+		&:after {
+			position: absolute;
+			top: 9px;
+			left: 5px;
+			display: block;
+			width: 10px;
+			height: 2px;
+			background-color: @background-color;
+			content: "";
+			-webkit-transform: rotate(45deg);
+			-moz-transform: rotate(45deg);
+			transform: rotate(45deg);
+		}
+
+		&:after {
+			-webkit-transform: rotate(-45deg);
+			-moz-transform: rotate(-45deg);
+			transform: rotate(-45deg);
+		}
+	}
 }
