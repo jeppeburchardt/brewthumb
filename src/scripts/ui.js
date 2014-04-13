@@ -1,7 +1,7 @@
 define(['jquery'], function ($) {
     $('#settings a').on('click', function (e) {
-        //e.preventDefault();
-        e.stopPropagation();
+        e.preventDefault();
+        //e.stopPropagation();
         $('#settings').toggleClass('open');
     });
     //$(document).on('click', function(e) {

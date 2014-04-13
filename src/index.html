@@ -33,31 +33,6 @@
 
 		<div id="top">
 			<span>Brew Thumbs</span>
-			<div id="settings">
-				<a href="#" title="Menu">
-					<span class="line"></span>
-					<span class="line"></span>
-					<span class="line"></span>
-				</a>
-				<ul>
-					<li>
-						<label>
-							<input type="checkbox" data-bind="checked: $root.settings.saveLocal" />
-							Save to local storage
-						</label>
-					</li>
-					<li>
-						<label>
-							<input type="radio" name="units" value="metric" data-bind="checked: $root.settings.units" />
-							Metric system
-						</label>
-						<label>
-							<input type="radio" name="units" value="imperials" data-bind="checked: $root.settings.units" />
-							Imperial system
-						</label>
-					</li>
-				</ul>
-			</div>
 		</div>
 
 		<div id="pane">
@@ -272,6 +247,34 @@
 
 
 		</div>
+
+		<div id="settings">
+			<a href="#" title="Menu">
+				<span class="line"></span>
+				<span class="line"></span>
+				<span class="line"></span>
+			</a>
+			<ul>
+				<li><strong>Settings</strong></li>
+				<li>
+					<label>
+						<input type="checkbox" data-bind="checked: $root.settings.saveLocal" />
+						Save to local storage
+					</label>
+				</li>
+				<li>
+					<label>
+						<input type="radio" name="units" value="metric" data-bind="checked: $root.settings.units" />
+						Metric system
+					</label>
+					<label>
+						<input type="radio" name="units" value="imperials" data-bind="checked: $root.settings.units" />
+						Imperial system
+					</label>
+				</li>
+			</ul>
+		</div>
+
 		<script type="text/javascript" src="brewthumb.js"></script>
 	</body>
 </html>
