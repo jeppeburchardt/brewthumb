@@ -9,8 +9,8 @@
 button {
 	text-align: center;
 	padding: 5px 20px;
-	border: 1px solid #ffd600;
-	color: #ffd600;
+	border: 1px solid @identity-color;
+	color: @identity-color;
 	text-decoration: none;
 	border-radius: 4px;
 	background-color: transparent;
@@ -19,12 +19,12 @@ button:focus {
 	outline: none;
 }
 button:active {
-	background-color: #ffd600;
-	color: #323232;
+	background-color: @identity-color;
+	color: @background-color;
 }
 button.remove {
 	border: 0;
-	background-color: #8f908a;
+	background-color: @default-color;
 	display: inline-block;
 	position: relative;
 	height: 20px;
@@ -44,7 +44,7 @@ button.remove:after {
 	-webkit-transform: rotate(45deg);
 	-moz-transform: rotate(45deg);
 	transform: rotate(45deg);
-	background-color: #323232;
+	background-color: @background-color;
 	height: 2px;
 	width: 10px;
 	top: 9px;

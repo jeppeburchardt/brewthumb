@@ -15,7 +15,7 @@ module.exports = function(grunt) {
 		less: {
 			styles: {
 				options: {
-					compress: true
+					strictImports: true
 				},
 				files: {
 					'tmp/brewthumb.css': 'src/styles/brewthumb.less'
@@ -32,12 +32,6 @@ module.exports = function(grunt) {
 					'tmp/<%= pkg.name %>-built.js'
 				],
 				dest:'tmp/<%= pkg.name %>.js'
-			},
-			css: {
-				src: [
-					'src/styles/screen.css'
-				],
-				dest: 'tmp/<%= pkg.name %>.css'
 			}
 		},
 		watch: {
