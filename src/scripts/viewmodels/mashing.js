@@ -57,9 +57,9 @@ define(['knockout', 'brewmath', 'viewmodels/settings'], function (ko, BrewMath, 
 
         self.selectedEquipment = ko.observable(2);
         self.equipment = ko.observableArray([
-            new Equipment('No compensation', 0),
-            new Equipment('2000W electric mash tun', 2),
-            new Equipment('20 gallon Igloo mash tun', 3)
+            new Equipment('None', 0),
+            new Equipment('2000W electric', 2),
+            new Equipment('20 gal Igloo', 3)
         ]);
 
         self.cst_strikeTemp = ko.computed(function () {
@@ -72,7 +72,7 @@ define(['knockout', 'brewmath', 'viewmodels/settings'], function (ko, BrewMath, 
 
             var compensation = 0;
             if (self.selectedEquipment()) {
-                compensation = settings.outputFromCelsius(self.selectedEquipment().celsius);
+                compensation = settings.outputFromCelsius(self.selectedEquipment());
             }
 
             console.log(self.selectedEquipment());

@@ -1,3 +1,3 @@
-require(['knockout', 'viewmodels/brewthumb', 'ui'], function(ko, brewthumbViewModel, ui) {
+require(['knockout', 'viewmodels/brewthumb', 'storage', 'ui'], function(ko, brewthumbViewModel, storage, ui) {
 	ko.applyBindings(brewthumbViewModel);
 });
