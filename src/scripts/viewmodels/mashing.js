@@ -42,6 +42,10 @@ define(['knockout', 'brewmath', 'viewmodels/settings'], function (ko, BrewMath, 
 
     };
 
+    var Equipment = function(name, celsius) {
+        this.name = name;
+        this.celsius = celsius;
+    };
 
     var MashingView = function () {
         var self = this;
@@ -50,13 +54,30 @@ define(['knockout', 'brewmath', 'viewmodels/settings'], function (ko, BrewMath, 
         self.cst_grainTemp = ko.observable(22);
         self.cst_waterAmount = ko.observable(15);
         self.cst_grainAmount = ko.observable(5.5);
+
+        self.selectedEquipment = ko.observable(2);
+        self.equipment = ko.observableArray([
+            new Equipment('No compensation', 0),
+            new Equipment('2000W electric mash tun', 2),
+            new Equipment('20 gallon Igloo mash tun', 3)
+        ]);
+
         self.cst_strikeTemp = ko.computed(function () {
             var target = settings.inputToCelsius(parseFloat(self.cst_target()) || 0),
                 grainTemp = settings.inputToCelsius(parseFloat(self.cst_grainTemp()) || 0),
                 waterAmount = settings.inputToLiters(parseFloat(self.cst_waterAmount()) || 0),
                 grainAmount = settings.inputToKg(parseFloat(self.cst_grainAmount()) || 0);
             var strike = settings.outputFromCelsius(BrewMath.strikeTemperature(grainTemp, grainAmount, waterAmount, target));
-            return Math.round(strike * 10) / 10;
+
+
+            var compensation = 0;
+            if (self.selectedEquipment()) {
+                compensation = settings.outputFromCelsius(self.selectedEquipment().celsius);
+            }
+
+            console.log(self.selectedEquipment());
+
+            return Math.round((strike+compensation) * 10) / 10;
         }, self);
 
         self.steps = ko.observableArray();

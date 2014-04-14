@@ -78,6 +78,19 @@
 						<span class="unit" data-bind="html: $root.settings.fluidUnit"></span>
 					</div>
 					<div class="item">
+						<label>Equipment
+						<div class="input-wrap">
+							<div class="select-wrap">
+								<select data-bind="options: $root.mashingView.equipment,
+                       optionsText: 'name',
+                       value: $root.mashingView.selectedEquipment">
+								</select>
+							</div>
+						</div>
+						</label>
+						<span class="unit select">&nbsp;</span>
+					</div>
+					<div class="item">
 						<label>Strike Water
 						<div class="input-wrap">
 							<input type="number" step="0.5" data-bind="value: $root.mashingView.cst_strikeTemp" readonly="readonly" />
