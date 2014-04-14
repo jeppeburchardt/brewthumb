@@ -1,7 +1,6 @@
 define(['knockout', 'viewmodels/brewthumb', 'viewmodels/settings'], function (ko, viewModel, settings) {
 
     function saveViewModel() {
-        console.log('saving viewmodel');
         if (settings.saveLocal()) {
             localStorage.viewModel = ko.toJSON(viewModel);
         }
@@ -12,7 +11,6 @@ define(['knockout', 'viewmodels/brewthumb', 'viewmodels/settings'], function (ko
     var storedViewModel = localStorage.getItem("viewModel");
     if (storedViewModel) {
         data = JSON.parse(storedViewModel);
-        console.log(settings.saveLocal());
 
         settings.saveLocal(data.settings.saveLocal);
         if (settings.saveLocal()) {
@@ -23,8 +21,6 @@ define(['knockout', 'viewmodels/brewthumb', 'viewmodels/settings'], function (ko
             viewModel.mashingView.cst_waterAmount(data.mashingView.cst_waterAmount);
             viewModel.mashingView.cst_target(data.mashingView.cst_target);
             viewModel.mashingView.selectedEquipment(data.mashingView.selectedEquipment);
-
-            console.log(data);
 
             //TODO: Add the rest of the views...
         }
