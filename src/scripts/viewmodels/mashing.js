@@ -1,19 +1,19 @@
 define(['knockout', 'brewmath', 'viewmodels/settings'], function (ko, BrewMath, settings) {
 
     var MashStepViewModel = function (mashingViewModel) {
-        var self = this;
-        self.mashingViewModel = mashingViewModel;
+        var self = this,
+            mvm = mashingViewModel;
 
         self.getPrevius = function () {
-            var currentMashCelsius = settings.inputToCelsius(parseFloat(self.mashingViewModel.cst_target()) || 0), //TODO: convert this if imperial units is selected
-                kgGrain = settings.inputToKg(parseFloat(self.mashingViewModel.cst_grainAmount()) || 0),
-                litersWater = settings.inputToLiters(parseFloat(self.mashingViewModel.cst_waterAmount()) || 0),
+            var currentMashCelsius = settings.inputToCelsius(parseFloat(mvm.cst_target()) || 0), //TODO: convert this if imperial units is selected
+                kgGrain = settings.inputToKg(parseFloat(mvm.cst_grainAmount()) || 0),
+                litersWater = settings.inputToLiters(parseFloat(mvm.cst_waterAmount()) || 0),
                 p = null;
-            for (var i = 0; i < self.mashingViewModel.steps().length; i++) {
-                if (self.mashingViewModel.steps()[i] === self) {
+            for (var i = 0; i < mvm.steps().length; i++) {
+                if (mvm.steps()[i] === self) {
                     break;
                 } else {
-                    p = self.mashingViewModel.steps()[i];
+                    p = mvm.steps()[i];
                     litersWater += settings.inputToLiters(parseFloat(p.water()) || 0);
                     currentMashCelsius = settings.inputToCelsius(parseFloat(p.target()) || 0);
                 }
@@ -26,7 +26,7 @@ define(['knockout', 'brewmath', 'viewmodels/settings'], function (ko, BrewMath, 
         };
 
         self.grain = function () {
-            return settings.inputToKg(parseFloat(self.mashingViewModel.cst_grainAmount()) || 0);
+            return settings.inputToKg(parseFloat(mvm.cst_grainAmount()) || 0);
         };
 
         self.target = ko.observable(70);
@@ -69,7 +69,7 @@ define(['knockout', 'brewmath', 'viewmodels/settings'], function (ko, BrewMath, 
                     return e.name;
                 }
             }
-            return "--";
+            return "No compensation";
         });
 
         self.cst_strikeTemp = ko.computed(function () {
@@ -91,7 +91,9 @@ define(['knockout', 'brewmath', 'viewmodels/settings'], function (ko, BrewMath, 
         self.steps = ko.observableArray();
 
         self.addStep = function () {
-            self.steps.push(new MashStepViewModel(self));
+            var s = new MashStepViewModel(self);
+            self.steps.push(s);
+            return s;
         };
         self.removeStep = function (step) {
             self.steps.remove(step);

@@ -22,7 +22,15 @@ define(['knockout', 'viewmodels/brewthumb', 'viewmodels/settings'], function (ko
             viewModel.mashingView.cst_target(data.mashingView.cst_target);
             viewModel.mashingView.selectedEquipment(data.mashingView.selectedEquipment);
 
+            for (var i=0; i<data.mashingView.steps.length; i++) {
+                var s = data.mashingView.steps[i];
+                var step = viewModel.mashingView.addStep();
+                step.target(s.target);
+            }
+
             //TODO: Add the rest of the views...
         }
     }
+
+    //window.saveViewModel = saveViewModel;
 });
