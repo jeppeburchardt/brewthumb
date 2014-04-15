@@ -8,8 +8,8 @@
 	z-index: 2;
 	text-shadow: 0 1px white;
 }
-#settings a:link,
-#settings a:visited {
+#settings > a:link,
+#settings > a:visited {
 	color: @topbar-color;
 	display: block;
 	position: absolute;
@@ -72,7 +72,7 @@
 	bottom: 0;
 	left: -300px;
 	z-index: 1234;
-	overflow: scroll;
+	overflow: auto;
 	margin: 0;
 	margin-top: 41px;
 	padding: 0;
@@ -102,4 +102,14 @@
 }
 #settings input {
 	margin-right: 15px;
+}
+#settings p {
+	margin: 15px 25px;
+	color: lighten(@menu-color, 30%);
+
+	a:link,
+	a:hover,
+	a:visited {
+		color: lighten(@menu-color, 30%);
+	}
 }
