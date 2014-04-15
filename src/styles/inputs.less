@@ -15,6 +15,10 @@
 		top: 0;
 		text-align: center;
 	
+		&.select {
+			right: 2px;
+		}
+
 		input, 
 		.select-wrap {
 
@@ -26,6 +30,7 @@
 			border: 2px solid;
 			border-color: @default-color !important;
 			border-radius: 4px 0 0 0;
+			border-right: 0;
 			background: transparent;
 			color: white;
 			text-align: center;
@@ -33,19 +38,31 @@
 			line-height: 35px;
 
 			select {
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				z-index: 2;
 				display: block;
-				padding: 0 10px;
 				width: 100%;
-				height: inherit;
-				border: none;
-				background: transparent;
-				color: inherit;
-				text-align: center;
-				text-transform: uppercase;
-				font-size: 20px;
-				line-height: inherit;
+				font-size: inherit;
+				opacity: 0;
 				-webkit-appearance: none;
+			}
 
+			.select-value {
+				position: absolute;
+				top: 0;
+				right: 50px;
+				bottom: 0;
+				left: 0;
+				z-index: 1;
+				overflow: hidden;
+				padding: 5px;
+				white-space: nowrap;
+				font-size: 20px;
+				line-height: 30px;
 			}
 		}
 	}
@@ -69,28 +86,34 @@
 
 .item .unit {
 	position: absolute;
-	right: 0;
 	top: 0;
-	width: 50px;
-	line-height: 35px;
-	text-align: center;
+	right: 0;
+	width: 44px;
 	border: 2px solid @default-color;
 	border-radius: 0 4px 0 0;
-	border-left: 0;
+	text-align: center;
+	line-height: 35px;
 	line-height: 35px;
 
-	&.select:before {
+	&.select:before,
+	&.select:after {
+		position: absolute;
+		right: 17px;
 		display: block;
-		content: "";
-		border: 10px solid rgba(0, 0, 0, 0);
-		border-top-color: @default-color;
 		width: 0;
 		height: 0;
+		border: 6px solid rgba(0, 0, 0, 0);
+		content: "";
+	}
 
-		position: absolute;
-		top: 12px;
-		right: 12px;
+	&.select:before {
+		top: 18px;
+		border-top-color: @default-color;
+	}
 
+	&.select:after {
+		top: 3px;
+		border-bottom-color: @default-color;
 	}
 }
 .item + .item .unit {

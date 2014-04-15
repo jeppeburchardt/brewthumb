@@ -57,10 +57,20 @@ define(['knockout', 'brewmath', 'viewmodels/settings'], function (ko, BrewMath, 
 
         self.selectedEquipment = ko.observable(2);
         self.equipment = ko.observableArray([
-            new Equipment('None', 0),
+            new Equipment('No compensation', 0),
             new Equipment('2000W electric', 2),
             new Equipment('20 gal Igloo', 3)
         ]);
+
+        self.selectedEquipmentName = ko.computed(function () {
+            for (var i=0; i<self.equipment().length; i++) {
+                var e = self.equipment()[i];
+                if (e.celsius == self.selectedEquipment()) {
+                    return e.name;
+                }
+            }
+            return "--";
+        });
 
         self.cst_strikeTemp = ko.computed(function () {
             var target = settings.inputToCelsius(parseFloat(self.cst_target()) || 0),
@@ -74,8 +84,6 @@ define(['knockout', 'brewmath', 'viewmodels/settings'], function (ko, BrewMath, 
             if (self.selectedEquipment()) {
                 compensation = settings.outputFromCelsius(self.selectedEquipment());
             }
-
-            console.log(self.selectedEquipment());
 
             return Math.round((strike+compensation) * 10) / 10;
         }, self);
