@@ -4,6 +4,7 @@ node_modules
 
 bin/
 tmp/
+www/
 
 *.sublime-project
 *.sublime-workspace
