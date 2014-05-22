@@ -44,24 +44,91 @@ module.exports = function(grunt) {
 					{expand: true, flatten: true, src: [
 						'src/index.html',
 						'src/resources/*.ico',
-						'src/resources/*.png',
 						'src/resources/*.xml',
 						'tmp/**.js',
 						'tmp/**.css'
-					], 'dest': 'bin/', 'filter':'isFile'}
+					], 'dest': 'www/', 'filter':'isFile'}
 				]
 			}
 		},
 		multiresize: {
-			ios: {
-				src: 'src/resources/appicon.png',
-				dest: ['src/resources/appicon60.png', 'src/resources/appicon76.png', 'src/resources/appicon114.png', 'src/resources/appicon152.png'],
-				destSizes: ['60x60', '76x76', '114x114', '152x152']
+			ios_icon: {
+				src: 'src/resources/icon.png',
+				dest: [
+					'www/res/icon/ios/icon-57.png',
+					'www/res/icon/ios/icon-57-2x.png',
+					'www/res/icon/ios/icon-72.png',
+					'www/res/icon/ios/icon-72-2x.png'
+				],
+				destSizes: [
+					'57x57', 
+					'114x114', 
+					'72x72', 
+					'177x177'
+				]
 			},
-			windowsPhone: {
-				src: 'src/resources/appicon.png',
-				dest: ['src/resources/appicon70.png', 'src/resources/appicon150.png', 'src/resources/appicon310.png'],
-				destSizes: ['70x70', '150x150', '310x310']
+			ios_screen: {
+				src: 'src/resources/screen.png',
+				dest: [
+					'www/res/screen/ios/screen-ipad-landscape-2x.png',
+					'www/res/screen/ios/screen-ipad-landscape.png',
+					'www/res/screen/ios/screen-ipad-portrait-2x.png',
+					'www/res/screen/ios/screen-ipad-portrait.png',
+					'www/res/screen/ios/screen-iphone-landscape-2x.png',
+					'www/res/screen/ios/screen-iphone-landscape.png',
+					'www/res/screen/ios/screen-iphone-portrait-2x.png',
+					'www/res/screen/ios/screen-iphone-portrait-568h-2x.png',
+					'www/res/screen/ios/screen-iphone-portrait.png'
+				],
+				destSizes: [
+					'2008x1536', 
+					'1024x783', 
+					'1536x2008', 
+					'768x1004', 
+					'960x640',
+					'480x320',
+					'640x960', 
+					'640x1136', 
+					'320x480'
+				]
+			},
+			android_icon: {
+				src: 'src/resources/icon.png',
+				dest: [
+					'www/res/icon/android/icon-36-ldpi.png',
+					'www/res/icon/android/icon-48-mdpi.png',
+					'www/res/icon/android/icon-72-hdpi.png',
+					'www/res/icon/android/icon-96-xhdpi.png'
+				],
+				destSizes: [
+					'36x36',
+					'48x48',
+					'72x72',
+					'96x96'
+				]
+			},
+			android_screen: {
+				src: 'src/resources/screen.png',
+				dest: [
+					'www/res/screen/android/screen-hdpi-landscape.png',
+					'www/res/screen/android/screen-hdpi-portrait.png',
+					'www/res/screen/android/screen-ldpi-landscape.png',
+					'www/res/screen/android/screen-ldpi-portrait.png',
+					'www/res/screen/android/screen-mdpi-landscape.png',
+					'www/res/screen/android/screen-mdpi-portrait.png',
+					'www/res/screen/android/screen-xhdpi-landscape.png',
+					'www/res/screen/android/screen-xhdpi-portrait.png'
+				],
+				destSizes: [
+					'800x480',
+					'480x800',
+					'320x200',
+					'200x320',
+					'480x320',
+					'320x480',
+					'1280x720',
+					'720x1280'
+				]
 			}
 		}
 	});
@@ -73,6 +140,5 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-multiresize');
 
-	grunt.registerTask('icons', ['multiresize']);
-	grunt.registerTask('default', ['less', 'requirejs', 'concat', 'copy']);
+	grunt.registerTask('default', ['less', 'requirejs', 'concat', 'copy', 'multiresize']);
 };
